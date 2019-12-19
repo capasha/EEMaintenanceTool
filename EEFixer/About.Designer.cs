@@ -32,6 +32,7 @@
             this.AboutTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.IconsLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.MainIconLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AboutTextBox
@@ -56,7 +57,7 @@
             // IconsLinkLabel
             // 
             this.IconsLinkLabel.AutoSize = true;
-            this.IconsLinkLabel.Location = new System.Drawing.Point(12, 210);
+            this.IconsLinkLabel.Location = new System.Drawing.Point(12, 231);
             this.IconsLinkLabel.Name = "IconsLinkLabel";
             this.IconsLinkLabel.Size = new System.Drawing.Size(151, 13);
             this.IconsLinkLabel.TabIndex = 2;
@@ -64,11 +65,21 @@
             this.IconsLinkLabel.Text = "Icons made by Fatcow hosting";
             this.IconsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.IconsLinkLabel_LinkClicked);
             // 
+            // MainIconLabel
+            // 
+            this.MainIconLabel.AutoSize = true;
+            this.MainIconLabel.Location = new System.Drawing.Point(12, 208);
+            this.MainIconLabel.Name = "MainIconLabel";
+            this.MainIconLabel.Size = new System.Drawing.Size(138, 13);
+            this.MainIconLabel.TabIndex = 3;
+            this.MainIconLabel.Text = "Main Icon made by nikko99";
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(248, 243);
+            this.ClientSize = new System.Drawing.Size(248, 280);
+            this.Controls.Add(this.MainIconLabel);
             this.Controls.Add(this.IconsLinkLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AboutTextBox);
@@ -87,5 +98,6 @@
         private System.Windows.Forms.TextBox AboutTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel IconsLinkLabel;
+        private System.Windows.Forms.Label MainIconLabel;
     }
 }
