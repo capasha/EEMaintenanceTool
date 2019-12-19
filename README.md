@@ -14,3 +14,6 @@ You could also sign up to Close Beta if you have Beta.
 Q: Does this tool collect my password and email?  
 A: No It doesn't. The tool will only connect you to Everybody Edits.   
 If you are unsure please look into the sourcecode. Or get help from other people.  
+
+Screenshot of the tool:  
+![screenshot](https://i.imgur.com/wVcHtK5.png)
