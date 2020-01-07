@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using PlayerIOClient;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace EEFixer
 {
     public partial class Form1 : Form
@@ -18,18 +22,33 @@ namespace EEFixer
             InitializeComponent();
         }
 
-        public static Connection con_;
-        public static Client client_;
-        public static bool signedUniverse = false;
-        public static Semaphore s1 = new Semaphore(0, 1);
-        public static int morethanxFavs = 85;
+        private Connection con_;
+        private Client client_;
+        private bool signedUniverse = false;
+        private Semaphore s1 = new Semaphore(0, 1);
+
+        List<string> currentFile = new List<string>();
+        private string nick = null;
+        private int morethanxFavs = 85;
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = $"Everybody Edits - Maintenance Tool v{this.ProductVersion}";
+            ToolTip tp = new ToolTip();
+            tp.SetToolTip(FlashCLabel, "Looking up if you have flash cookies (LSO) for EE.");
+            tp.SetToolTip(GameOnLabel, "Looking up if Everybody Edits is up and running.");
+            tp.SetToolTip(GameELabel, "Looking up if Everybody Edits exist on PlayerIO.");
+            tp.SetToolTip(UniverseLabel, "Looking up if you already have joined EEUniverse.");
+            tp.SetToolTip(BetaLabel, "Looking up if you already have Beta in Everybody Edits.");
+
+            //DownOrNot();
+            GameExist();
+            DownOrNot();
+            DetectLSO();
         }
 
 
         #region connections
+
 
         //Connect to lobby
         private void TryLobbyConnect(string id, Client client)
@@ -63,7 +82,7 @@ namespace EEFixer
                         else
                         {
 
-                            RT.AppendText(LogRichTextBox, $"Error: EEU: You are already signed up.\n", Color.DarkRed);
+                            RT.AppendText(LogRichTextBox, $"Error: EEU: You are already signed up to closed beta.\n", Color.DarkRed);
                         }
                         break;
                     case "LobbyTo":
@@ -81,6 +100,7 @@ namespace EEFixer
                         int total = ExtractPlayerObjectsMessage(m) + 1;
                         string nickname = m[(uint)total].ToString();
                         signedUniverse = Convert.ToBoolean(m[(uint)total + 30]);
+                        nick = nickname;
                         RT.AppendText(LogRichTextBox, $"Info: Connected as: {nickname}.\n", Color.DarkBlue);
                         bool havebeta = false;
                         client.PayVault.Refresh(() =>
@@ -192,6 +212,24 @@ namespace EEFixer
         #endregion
 
         #region Buttons and misc
+
+        //Delete flash cookies (LSO)
+        private void DelFButton_Click(object sender, EventArgs e)
+        {
+            if (currentFile.Count >= 1)
+            {
+                if (MessageBox.Show("Are you sure you want to delete the Flash Cookies?\nEE's Flash Cookies store history and login information.", "Info", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    foreach (var file in currentFile)
+                    {
+                        File.Delete(file);
+                    }
+                }
+            }
+            currentFile.Clear();
+            DetectLSO();
+        }
+
 
         //Open up About Window.
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -322,11 +360,108 @@ namespace EEFixer
             return new string(Enumerable.Repeat(chars, length).Select(s => s[new Random().Next(s.Length)]).ToArray());
         }
 
+        private void DetectLSO()
+        {
+            
+            string[] paths = new string[1];
+
+            var path = Path.GetFullPath(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Macromedia\Flash Player\#SharedObjects\");
+            var path2 = Path.GetFullPath($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{@"\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\"}");
+
+            paths = new string[] { path, path2 };
+            foreach (var value in paths)
+            {
+                foreach (string file in Directory.EnumerateFiles(value, "*.sol", SearchOption.AllDirectories))
+                {
+
+                    if (file.Contains(@"everybodyedits.com\ssx.sol"))
+                    {
+                        currentFile.Add(file);
+                    }
+
+                }
+            }
+            
+            if (currentFile.Count >= 1)
+            {
+                RT.AppendText(LogRichTextBox, $"Info: Found {currentFile.Count} Flash Cookie(s) (LSO).\n", Color.DarkBlue);
+                FlashCPictureBox.Image = Properties.Resources.btick;
+                DelFButton.Enabled = true;
+            }
+            else
+            {
+                FlashCPictureBox.Image = Properties.Resources.tick;
+                DelFButton.Enabled = false;
+            }
+        }
+        //Is ee down for me or everyone else
+        private void DownOrNot()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.downfor.cloud/httpcheck/everybodyedits.com");
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0";
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+            WebResponse response = request.GetResponse();
+            string apiStatus = null;
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                apiStatus = reader.ReadToEnd();
+            }
+            try
+            {
+                JObject ob = JObject.Parse(apiStatus);
+                if (Convert.ToBoolean(ob["isDown"]))
+                {
+                    GameOnPictureBox.Image = Properties.Resources.cross;
+                }
+                else
+                {
+                    GameOnPictureBox.Image = Properties.Resources.tick;
+                }
+            }
+            catch
+            {
+            }
+
+        }
+
+        //Does EE exist
+        private void GameExist()
+        {
+            PlayerIO.QuickConnect.SimpleConnect("everybody-edits-su9rn58o40itdbnw69plyw", "guest", "guest", null, (Client client) =>
+            {
+                if (GameEPictureBox.InvokeRequired)
+                {
+                    GameEPictureBox.Invoke((MethodInvoker)delegate
+                    {
+
+                        GameEPictureBox.Image = Properties.Resources.tick;
+
+                    });
+                }
+            }, (PlayerIOError error) =>
+            {
+                if (GameEPictureBox.InvokeRequired)
+                {
+                    GameEPictureBox.Invoke((MethodInvoker)delegate
+                    {
+
+                        GameEPictureBox.Image = Properties.Resources.cross;
+
+                    });
+                }
+            });
+        }
 
 
         #endregion
 
-
+        private void FavBackupCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.backup = ((CheckBox)sender).Checked;
+            Properties.Settings.Default.Save();
+        }
     }
 
     #region Classes
@@ -347,7 +482,20 @@ namespace EEFixer
                     box.SelectionColor = box.ForeColor;
                 });
             }
+            else {
+                box.SelectionStart = box.TextLength;
+                box.SelectionLength = 0;
+
+                box.SelectionColor = color;
+                box.AppendText(text);
+                box.SelectionColor = box.ForeColor;
+            }
         }
+    }
+    public class favBackup
+    {
+        public string name { get; set; }
+        public string id { get; set; }
     }
     #endregion
 
