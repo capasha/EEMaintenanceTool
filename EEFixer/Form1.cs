@@ -303,7 +303,7 @@ namespace EEFixer
                     data.Add(id, FavoritesListView.SelectedItems[0].SubItems[0].Text);
                 }
 
-                /*client_.Multiplayer.CreateJoinRoom(id, id.Substring(0, 2) == "BW" ? $"Beta{client_.BigDB.Load("config", "config")["version"]}" : $"Everybodyedits{client_.BigDB.Load("config", "config")["version"]}", true, null, new Dictionary<string, string>() { { "QuickAction", "unfavorite" } }, (Connection con) =>
+                client_.Multiplayer.CreateJoinRoom(id, id.Substring(0, 2) == "BW" ? $"Beta{client_.BigDB.Load("config", "config")["version"]}" : $"Everybodyedits{client_.BigDB.Load("config", "config")["version"]}", true, null, new Dictionary<string, string>() { { "QuickAction", "unfavorite" } }, (Connection con) =>
                 {
                     con.OnMessage += (s, m) =>
                     {
@@ -334,7 +334,7 @@ namespace EEFixer
                 }, (PlayerIOError error) =>
                 {
 
-                });*/
+                });
                 FavoritesListView.SelectedItems[0].Remove();
             }
         }
