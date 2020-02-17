@@ -17,6 +17,7 @@ namespace EEFixer
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
@@ -26,24 +27,30 @@ namespace EEFixer
         private Client client_;
         private bool signedUniverse = false;
         private Semaphore s1 = new Semaphore(0, 1);
+        private int startX = 0;
+        private int startY = 0;
 
         List<string> currentFile = new List<string>();
+        private Dictionary<string, FavDB> favdata = new Dictionary<string, FavDB>();
+        Dictionary<string, string> data = new Dictionary<string, string>();
         private string nick = null;
         private int morethanxFavs = 85;
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = $"Everybody Edits - Maintenance Tool v{this.ProductVersion}";
             ToolTip tp = new ToolTip();
-            tp.SetToolTip(FlashCLabel, "Looking up if you have flash cookies (LSO) for EE.");
-            tp.SetToolTip(GameOnLabel, "Looking up if Everybody Edits is up and running.");
-            tp.SetToolTip(GameELabel, "Looking up if Everybody Edits exist on PlayerIO.");
-            tp.SetToolTip(UniverseLabel, "Looking up if you already have joined EEUniverse.");
-            tp.SetToolTip(BetaLabel, "Looking up if you already have Beta in Everybody Edits.");
-
+            tp.SetToolTip(EEUInfoPictureBox, "Click on the button to join\nEverybody Edits Universe");
+            tp.SetToolTip(LSOInfoPictureBox, "Only delete cookies when needed\nIf you want to remove them You're login\n and history will be deleted.");
+            tp.SetToolTip(EEUInfosPictureBox, "This will lookup if you have joined\nEverybody Edits Universe or not");
+            tp.SetToolTip(BetaInfoPictureBox, "This will lookup if you are a beta user or not");
+            tp.SetToolTip(LSOInfosPictureBox, "Looking up if you have flash cookies (LSO) for EE.");
+            tp.SetToolTip(GEInfoPictureBox, "Looking up if Everybody Edits exist on PlayerIO.");
+            tp.SetToolTip(GOInfoPictureBox, "Looking up if Everybody Edits website is up and running");
             //DownOrNot();
             GameExist();
             DownOrNot();
             DetectLSO();
+
         }
 
 
@@ -180,6 +187,35 @@ namespace EEFixer
 
                             }
                         }
+                        if (File.Exists($"{Directory.GetCurrentDirectory()}\\favs.json"))
+                        {
+                            var output = JObject.Parse(File.ReadAllText($"{Directory.GetCurrentDirectory()}\\favs.json"));
+                            foreach (var property in output)
+                            {
+                                if (property.Key == nick)
+                                {
+                                    if (property.Value != null)
+                                    {
+                                        data = JsonConvert.DeserializeObject<Dictionary<string, string>>(property.Value["worlds"].ToString());
+                                        foreach (KeyValuePair<string, string> kvp in data)
+                                        {
+                                            if (FavBackupListView.InvokeRequired)
+                                            {
+                                                FavBackupListView.Invoke((MethodInvoker)delegate
+                                                {
+                                                    ListViewItem lvi1 = new ListViewItem();
+                                                    lvi1.Text = kvp.Value;
+                                                    lvi1.SubItems.Add(kvp.Key);
+                                                    FavBackupListView.Items.Add(lvi1);
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        }
 
 
                         break;
@@ -257,7 +293,17 @@ namespace EEFixer
             if (FavoritesListView.SelectedIndices.Count == 1)
             {
                 var id = FavoritesListView.SelectedItems[0].SubItems[1].Text;
-                client_.Multiplayer.CreateJoinRoom(id, id.Substring(0, 2) == "BW" ? $"Beta{client_.BigDB.Load("config", "config")["version"]}" : $"Everybodyedits{client_.BigDB.Load("config", "config")["version"]}", true, null, new Dictionary<string, string>() { { "QuickAction", "unfavorite" } }, (Connection con) =>
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = FavoritesListView.SelectedItems[0].SubItems[0].Text;
+                lvi.SubItems.Add(FavoritesListView.SelectedItems[0].SubItems[1].Text);
+                FavBackupListView.Items.Add(lvi);
+
+                if (!data.ContainsKey(id))
+                {
+                    data.Add(id, FavoritesListView.SelectedItems[0].SubItems[0].Text);
+                }
+
+                /*client_.Multiplayer.CreateJoinRoom(id, id.Substring(0, 2) == "BW" ? $"Beta{client_.BigDB.Load("config", "config")["version"]}" : $"Everybodyedits{client_.BigDB.Load("config", "config")["version"]}", true, null, new Dictionary<string, string>() { { "QuickAction", "unfavorite" } }, (Connection con) =>
                 {
                     con.OnMessage += (s, m) =>
                     {
@@ -288,7 +334,7 @@ namespace EEFixer
                 }, (PlayerIOError error) =>
                 {
 
-                });
+                });*/
                 FavoritesListView.SelectedItems[0].Remove();
             }
         }
@@ -319,10 +365,27 @@ namespace EEFixer
         {
             if (con_ != null) con_.Send("universeOptIn");
         }
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (nick != null)
+            {
+                favdata.Add(nick, new FavDB() { worlds = data });
+                File.WriteAllText($"{Directory.GetCurrentDirectory()}\\favs.json", JsonConvert.SerializeObject(favdata, Formatting.Indented));
+            }
+        }
 
+        private void FavBackupListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (FavBackupListView.SelectedIndices.Count == 1)
+            {
+                RoomIDTextBox.Text = FavBackupListView.SelectedItems[0].SubItems[1].Text;
+            }
+        }
         #endregion
 
         #region Tools
+
+
         //Return count for PlayerObjects
         private int ExtractPlayerObjectsMessage(PlayerIOClient.Message param)
         {
@@ -362,7 +425,7 @@ namespace EEFixer
 
         private void DetectLSO()
         {
-            
+
             string[] paths = new string[1];
 
             var path = Path.GetFullPath(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Macromedia\Flash Player\#SharedObjects\");
@@ -381,7 +444,7 @@ namespace EEFixer
 
                 }
             }
-            
+
             if (currentFile.Count >= 1)
             {
                 RT.AppendText(LogRichTextBox, $"Info: Found {currentFile.Count} Flash Cookie(s) (LSO).\n", Color.DarkBlue);
@@ -455,13 +518,9 @@ namespace EEFixer
         }
 
 
+
         #endregion
 
-        private void FavBackupCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.backup = ((CheckBox)sender).Checked;
-            Properties.Settings.Default.Save();
-        }
     }
 
     #region Classes
@@ -482,7 +541,8 @@ namespace EEFixer
                     box.SelectionColor = box.ForeColor;
                 });
             }
-            else {
+            else
+            {
                 box.SelectionStart = box.TextLength;
                 box.SelectionLength = 0;
 
@@ -492,10 +552,10 @@ namespace EEFixer
             }
         }
     }
-    public class favBackup
+
+    public class FavDB
     {
-        public string name { get; set; }
-        public string id { get; set; }
+        public Dictionary<string, string> worlds { get; set; }
     }
     #endregion
 

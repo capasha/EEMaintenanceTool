@@ -38,6 +38,8 @@
             this.LogRichTextBox = new System.Windows.Forms.RichTextBox();
             this.LogGroupBox = new System.Windows.Forms.GroupBox();
             this.ToolGroupBox = new System.Windows.Forms.GroupBox();
+            this.LSOInfoPictureBox = new System.Windows.Forms.PictureBox();
+            this.EEUInfoPictureBox = new System.Windows.Forms.PictureBox();
             this.DelFButton = new System.Windows.Forms.Button();
             this.EEUJoinButton = new System.Windows.Forms.Button();
             this.UniverseLabel = new System.Windows.Forms.Label();
@@ -49,27 +51,40 @@
             this.FavoritesNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FavoritesIDColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EEStatusGroupBox = new System.Windows.Forms.GroupBox();
-            this.FlashCLabel = new System.Windows.Forms.Label();
-            this.GameOnLabel = new System.Windows.Forms.Label();
-            this.GameELabel = new System.Windows.Forms.Label();
+            this.EEUInfosPictureBox = new System.Windows.Forms.PictureBox();
+            this.BetaInfoPictureBox = new System.Windows.Forms.PictureBox();
+            this.LSOInfosPictureBox = new System.Windows.Forms.PictureBox();
+            this.GOInfoPictureBox = new System.Windows.Forms.PictureBox();
+            this.GEInfoPictureBox = new System.Windows.Forms.PictureBox();
             this.FlashCPictureBox = new System.Windows.Forms.PictureBox();
+            this.FlashCLabel = new System.Windows.Forms.Label();
             this.UniversePictureBox = new System.Windows.Forms.PictureBox();
             this.BetaPictureBox = new System.Windows.Forms.PictureBox();
             this.GameOnPictureBox = new System.Windows.Forms.PictureBox();
+            this.GameOnLabel = new System.Windows.Forms.Label();
             this.GameEPictureBox = new System.Windows.Forms.PictureBox();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GameELabel = new System.Windows.Forms.Label();
             this.FavBackupGroupBox = new System.Windows.Forms.GroupBox();
+            this.RoomIDTextBox = new System.Windows.Forms.TextBox();
+            this.RoomIDLabel = new System.Windows.Forms.Label();
             this.FavBackupListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.FavBackupCheckBox = new System.Windows.Forms.CheckBox();
             this.LoginGroupBox.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
             this.ToolGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LSOInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EEUInfoPictureBox)).BeginInit();
             this.FavoritesGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EEStatusGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EEUInfosPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BetaInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LSOInfosPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GOInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GEInfoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlashCPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UniversePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BetaPictureBox)).BeginInit();
@@ -159,7 +174,8 @@
             // 
             // ToolGroupBox
             // 
-            this.ToolGroupBox.Controls.Add(this.FavBackupCheckBox);
+            this.ToolGroupBox.Controls.Add(this.LSOInfoPictureBox);
+            this.ToolGroupBox.Controls.Add(this.EEUInfoPictureBox);
             this.ToolGroupBox.Controls.Add(this.DelFButton);
             this.ToolGroupBox.Controls.Add(this.EEUJoinButton);
             this.ToolGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -170,12 +186,31 @@
             this.ToolGroupBox.TabStop = false;
             this.ToolGroupBox.Text = "Tools";
             // 
+            // LSOInfoPictureBox
+            // 
+            this.LSOInfoPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.LSOInfoPictureBox.Location = new System.Drawing.Point(113, 68);
+            this.LSOInfoPictureBox.Name = "LSOInfoPictureBox";
+            this.LSOInfoPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.LSOInfoPictureBox.TabIndex = 8;
+            this.LSOInfoPictureBox.TabStop = false;
+            // 
+            // EEUInfoPictureBox
+            // 
+            this.EEUInfoPictureBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.EEUInfoPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.EEUInfoPictureBox.Location = new System.Drawing.Point(113, 23);
+            this.EEUInfoPictureBox.Name = "EEUInfoPictureBox";
+            this.EEUInfoPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.EEUInfoPictureBox.TabIndex = 7;
+            this.EEUInfoPictureBox.TabStop = false;
+            // 
             // DelFButton
             // 
             this.DelFButton.Enabled = false;
             this.DelFButton.Image = global::EEFixer.Properties.Resources.delete;
             this.DelFButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DelFButton.Location = new System.Drawing.Point(137, 19);
+            this.DelFButton.Location = new System.Drawing.Point(9, 64);
             this.DelFButton.Name = "DelFButton";
             this.DelFButton.Size = new System.Drawing.Size(94, 23);
             this.DelFButton.TabIndex = 6;
@@ -284,8 +319,21 @@
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Image = global::EEFixer.Properties.Resources.information;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // EEStatusGroupBox
             // 
+            this.EEStatusGroupBox.Controls.Add(this.EEUInfosPictureBox);
+            this.EEStatusGroupBox.Controls.Add(this.BetaInfoPictureBox);
+            this.EEStatusGroupBox.Controls.Add(this.LSOInfosPictureBox);
+            this.EEStatusGroupBox.Controls.Add(this.GOInfoPictureBox);
+            this.EEStatusGroupBox.Controls.Add(this.GEInfoPictureBox);
             this.EEStatusGroupBox.Controls.Add(this.FlashCPictureBox);
             this.EEStatusGroupBox.Controls.Add(this.FlashCLabel);
             this.EEStatusGroupBox.Controls.Add(this.UniversePictureBox);
@@ -303,35 +351,50 @@
             this.EEStatusGroupBox.TabStop = false;
             this.EEStatusGroupBox.Text = "Everybody Edits Status";
             // 
-            // FlashCLabel
+            // EEUInfosPictureBox
             // 
-            this.FlashCLabel.AutoSize = true;
-            this.FlashCLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FlashCLabel.Location = new System.Drawing.Point(16, 90);
-            this.FlashCLabel.Name = "FlashCLabel";
-            this.FlashCLabel.Size = new System.Drawing.Size(84, 13);
-            this.FlashCLabel.TabIndex = 9;
-            this.FlashCLabel.Text = "Flash Cookie:";
+            this.EEUInfosPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.EEUInfosPictureBox.Location = new System.Drawing.Point(169, 154);
+            this.EEUInfosPictureBox.Name = "EEUInfosPictureBox";
+            this.EEUInfosPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.EEUInfosPictureBox.TabIndex = 15;
+            this.EEUInfosPictureBox.TabStop = false;
             // 
-            // GameOnLabel
+            // BetaInfoPictureBox
             // 
-            this.GameOnLabel.AutoSize = true;
-            this.GameOnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GameOnLabel.Location = new System.Drawing.Point(16, 57);
-            this.GameOnLabel.Name = "GameOnLabel";
-            this.GameOnLabel.Size = new System.Drawing.Size(83, 13);
-            this.GameOnLabel.TabIndex = 2;
-            this.GameOnLabel.Text = "Game Online:";
+            this.BetaInfoPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.BetaInfoPictureBox.Location = new System.Drawing.Point(169, 127);
+            this.BetaInfoPictureBox.Name = "BetaInfoPictureBox";
+            this.BetaInfoPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.BetaInfoPictureBox.TabIndex = 14;
+            this.BetaInfoPictureBox.TabStop = false;
             // 
-            // GameELabel
+            // LSOInfosPictureBox
             // 
-            this.GameELabel.AutoSize = true;
-            this.GameELabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GameELabel.Location = new System.Drawing.Point(16, 31);
-            this.GameELabel.Name = "GameELabel";
-            this.GameELabel.Size = new System.Drawing.Size(74, 13);
-            this.GameELabel.TabIndex = 0;
-            this.GameELabel.Text = "Game Exist:";
+            this.LSOInfosPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.LSOInfosPictureBox.Location = new System.Drawing.Point(169, 90);
+            this.LSOInfosPictureBox.Name = "LSOInfosPictureBox";
+            this.LSOInfosPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.LSOInfosPictureBox.TabIndex = 13;
+            this.LSOInfosPictureBox.TabStop = false;
+            // 
+            // GOInfoPictureBox
+            // 
+            this.GOInfoPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.GOInfoPictureBox.Location = new System.Drawing.Point(169, 57);
+            this.GOInfoPictureBox.Name = "GOInfoPictureBox";
+            this.GOInfoPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.GOInfoPictureBox.TabIndex = 12;
+            this.GOInfoPictureBox.TabStop = false;
+            // 
+            // GEInfoPictureBox
+            // 
+            this.GEInfoPictureBox.Image = global::EEFixer.Properties.Resources.information;
+            this.GEInfoPictureBox.Location = new System.Drawing.Point(169, 31);
+            this.GEInfoPictureBox.Name = "GEInfoPictureBox";
+            this.GEInfoPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.GEInfoPictureBox.TabIndex = 11;
+            this.GEInfoPictureBox.TabStop = false;
             // 
             // FlashCPictureBox
             // 
@@ -341,6 +404,16 @@
             this.FlashCPictureBox.Size = new System.Drawing.Size(16, 16);
             this.FlashCPictureBox.TabIndex = 10;
             this.FlashCPictureBox.TabStop = false;
+            // 
+            // FlashCLabel
+            // 
+            this.FlashCLabel.AutoSize = true;
+            this.FlashCLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FlashCLabel.Location = new System.Drawing.Point(16, 90);
+            this.FlashCLabel.Name = "FlashCLabel";
+            this.FlashCLabel.Size = new System.Drawing.Size(84, 13);
+            this.FlashCLabel.TabIndex = 9;
+            this.FlashCLabel.Text = "Flash Cookie:";
             // 
             // UniversePictureBox
             // 
@@ -369,6 +442,16 @@
             this.GameOnPictureBox.TabIndex = 3;
             this.GameOnPictureBox.TabStop = false;
             // 
+            // GameOnLabel
+            // 
+            this.GameOnLabel.AutoSize = true;
+            this.GameOnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GameOnLabel.Location = new System.Drawing.Point(16, 57);
+            this.GameOnLabel.Name = "GameOnLabel";
+            this.GameOnLabel.Size = new System.Drawing.Size(83, 13);
+            this.GameOnLabel.TabIndex = 2;
+            this.GameOnLabel.Text = "Game Online:";
+            // 
             // GameEPictureBox
             // 
             this.GameEPictureBox.Image = global::EEFixer.Properties.Resources.cross;
@@ -378,16 +461,20 @@
             this.GameEPictureBox.TabIndex = 1;
             this.GameEPictureBox.TabStop = false;
             // 
-            // aboutToolStripMenuItem
+            // GameELabel
             // 
-            this.aboutToolStripMenuItem.Image = global::EEFixer.Properties.Resources.information;
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.GameELabel.AutoSize = true;
+            this.GameELabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GameELabel.Location = new System.Drawing.Point(16, 31);
+            this.GameELabel.Name = "GameELabel";
+            this.GameELabel.Size = new System.Drawing.Size(74, 13);
+            this.GameELabel.TabIndex = 0;
+            this.GameELabel.Text = "Game Exist:";
             // 
             // FavBackupGroupBox
             // 
+            this.FavBackupGroupBox.Controls.Add(this.RoomIDTextBox);
+            this.FavBackupGroupBox.Controls.Add(this.RoomIDLabel);
             this.FavBackupGroupBox.Controls.Add(this.FavBackupListView);
             this.FavBackupGroupBox.Location = new System.Drawing.Point(484, 202);
             this.FavBackupGroupBox.Name = "FavBackupGroupBox";
@@ -395,6 +482,22 @@
             this.FavBackupGroupBox.TabIndex = 7;
             this.FavBackupGroupBox.TabStop = false;
             this.FavBackupGroupBox.Text = "Favorites Backup";
+            // 
+            // RoomIDTextBox
+            // 
+            this.RoomIDTextBox.Location = new System.Drawing.Point(61, 246);
+            this.RoomIDTextBox.Name = "RoomIDTextBox";
+            this.RoomIDTextBox.Size = new System.Drawing.Size(191, 20);
+            this.RoomIDTextBox.TabIndex = 2;
+            // 
+            // RoomIDLabel
+            // 
+            this.RoomIDLabel.AutoSize = true;
+            this.RoomIDLabel.Location = new System.Drawing.Point(6, 249);
+            this.RoomIDLabel.Name = "RoomIDLabel";
+            this.RoomIDLabel.Size = new System.Drawing.Size(49, 13);
+            this.RoomIDLabel.TabIndex = 1;
+            this.RoomIDLabel.Text = "RoomID:";
             // 
             // FavBackupListView
             // 
@@ -407,10 +510,11 @@
             this.FavBackupListView.Location = new System.Drawing.Point(6, 32);
             this.FavBackupListView.MultiSelect = false;
             this.FavBackupListView.Name = "FavBackupListView";
-            this.FavBackupListView.Size = new System.Drawing.Size(246, 251);
+            this.FavBackupListView.Size = new System.Drawing.Size(246, 205);
             this.FavBackupListView.TabIndex = 0;
             this.FavBackupListView.UseCompatibleStateImageBehavior = false;
             this.FavBackupListView.View = System.Windows.Forms.View.Details;
+            this.FavBackupListView.SelectedIndexChanged += new System.EventHandler(this.FavBackupListView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -422,22 +526,11 @@
             this.columnHeader2.Text = "";
             this.columnHeader2.Width = 0;
             // 
-            // FavBackupCheckBox
-            // 
-            this.FavBackupCheckBox.AutoSize = true;
-            this.FavBackupCheckBox.Location = new System.Drawing.Point(6, 60);
-            this.FavBackupCheckBox.Name = "FavBackupCheckBox";
-            this.FavBackupCheckBox.Size = new System.Drawing.Size(104, 17);
-            this.FavBackupCheckBox.TabIndex = 7;
-            this.FavBackupCheckBox.Text = "Favorite Backup";
-            this.FavBackupCheckBox.UseVisualStyleBackColor = true;
-            this.FavBackupCheckBox.CheckedChanged += new System.EventHandler(this.FavBackupCheckBox_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(760, 498);
+            this.ClientSize = new System.Drawing.Size(760, 542);
             this.Controls.Add(this.FavBackupGroupBox);
             this.Controls.Add(this.EEStatusGroupBox);
             this.Controls.Add(this.FavoritesGroupBox);
@@ -450,24 +543,32 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Everybody Edits - Maintenance Tool v1.0";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.LoginGroupBox.ResumeLayout(false);
             this.LoginGroupBox.PerformLayout();
             this.LogGroupBox.ResumeLayout(false);
             this.ToolGroupBox.ResumeLayout(false);
-            this.ToolGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LSOInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EEUInfoPictureBox)).EndInit();
             this.FavoritesGroupBox.ResumeLayout(false);
             this.FavoritesGroupBox.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.EEStatusGroupBox.ResumeLayout(false);
             this.EEStatusGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EEUInfosPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BetaInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LSOInfosPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GOInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GEInfoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FlashCPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UniversePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BetaPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOnPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameEPictureBox)).EndInit();
             this.FavBackupGroupBox.ResumeLayout(false);
+            this.FavBackupGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,7 +610,15 @@
         private System.Windows.Forms.ListView FavBackupListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.CheckBox FavBackupCheckBox;
+        private System.Windows.Forms.TextBox RoomIDTextBox;
+        private System.Windows.Forms.Label RoomIDLabel;
+        private System.Windows.Forms.PictureBox LSOInfoPictureBox;
+        private System.Windows.Forms.PictureBox EEUInfoPictureBox;
+        private System.Windows.Forms.PictureBox EEUInfosPictureBox;
+        private System.Windows.Forms.PictureBox BetaInfoPictureBox;
+        private System.Windows.Forms.PictureBox LSOInfosPictureBox;
+        private System.Windows.Forms.PictureBox GOInfoPictureBox;
+        private System.Windows.Forms.PictureBox GEInfoPictureBox;
     }
 }
 
