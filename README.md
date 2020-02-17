@@ -16,7 +16,7 @@ A: No It doesn't. The tool will only connect you to Everybody Edits.
 If you are unsure please look into the sourcecode. Or get help from other people.  
 
 Screenshot of the tool:  
-![screenshot](https://i.imgur.com/wVcHtK5.png)  
+![screenshot](https://i.imgur.com/BlLyu12.png)  
 
 Main Creator of Icon is nikko99.  
 
