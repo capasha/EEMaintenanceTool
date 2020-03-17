@@ -10,7 +10,10 @@ The developers have also seen this as an conclusion, remove favorited worlds wou
 
 Q: Does this tool collect my password and email?  
 A: No It doesn't. The tool will only connect you to Everybody Edits.   
-If you are unsure please look into the sourcecode. Or get help from other people.  
+If you are unsure please look into the sourcecode. Or get help from other people. 
+  
+Remember that Flash cookies(LSO) isn't needed to remove. (Green tick isn't needed, let it be blue).     
+They will save your login details and history of the last worlds you have been inside.  
 
 Screenshot of the tool:  
 ![screenshot](https://i.imgur.com/BlLyu12.png)  
