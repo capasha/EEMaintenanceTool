@@ -434,14 +434,17 @@ namespace EEFixer
             paths = new string[] { path, path2 };
             foreach (var value in paths)
             {
-                foreach (string file in Directory.EnumerateFiles(value, "*.sol", SearchOption.AllDirectories))
+                if (Directory.Exists(value))
                 {
-
-                    if (file.Contains(@"everybodyedits.com\ssx.sol"))
+                    foreach (string file in Directory.EnumerateFiles(value, "*.sol", SearchOption.AllDirectories))
                     {
-                        currentFile.Add(file);
-                    }
 
+                        if (file.Contains(@"everybodyedits.com\ssx.sol"))
+                        {
+                            currentFile.Add(file);
+                        }
+
+                    }
                 }
             }
 
